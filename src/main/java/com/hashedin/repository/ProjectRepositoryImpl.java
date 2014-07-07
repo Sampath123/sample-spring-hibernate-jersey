@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import com.hashedin.model.Project;
+import com.hashedin.model.Task;
 
 @Repository("projectRepository")
 public class ProjectRepositoryImpl implements ProjectRepository{
@@ -49,6 +50,11 @@ public class ProjectRepositoryImpl implements ProjectRepository{
 	        em.remove(proToBeDeleted);
 	        return proToBeDeleted;
 	    }
+
+		@Override
+		public List<Task> findTasksForProject(long proId) {
+			return em.find(Project.class, proId).getTasks();
+		}
 
 
 }
