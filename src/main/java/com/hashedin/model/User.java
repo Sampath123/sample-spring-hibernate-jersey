@@ -19,12 +19,12 @@ import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 @NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u") })
 public class User {
 	@Id
-    @GeneratedValue
-    private Long userId;
-    private String userName;    
-    @XmlInverseReference (mappedBy="assignedTo")
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "assignedTo", targetEntity=Task.class)
-    private List<Task>tasks;           
+	@GeneratedValue
+	private Long userId;
+	private String userName;
+	@XmlInverseReference(mappedBy = "assignedTo")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "assignedTo", targetEntity = Task.class)
+	private List<Task> tasks;
 
 	public String getUserName() {
 		return userName;
@@ -33,7 +33,7 @@ public class User {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
+
 	public List<Task> getTasks() {
 		return tasks;
 	}
@@ -41,7 +41,7 @@ public class User {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
-	
+
 	public Long getUserId() {
 		return userId;
 	}

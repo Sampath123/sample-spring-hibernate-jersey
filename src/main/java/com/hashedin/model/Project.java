@@ -18,37 +18,38 @@ import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 @Table(name = "projects")
 @NamedQueries({ @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p") })
 public class Project {
-	
+
 	@Id
-    @GeneratedValue
-    private Long projectId;
+	@GeneratedValue
+	private Long projectId;
 	private String proTitle;
-	@XmlInverseReference (mappedBy="project")
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "project", targetEntity=Task.class)
-	private List<Task>tasks;
-	
+
+	@XmlInverseReference(mappedBy = "project")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "project", targetEntity = Task.class)
+	private List<Task> tasks;
+
 	public String getProTitle() {
 		return proTitle;
 	}
+
 	public void setProTitle(String proTitle) {
 		this.proTitle = proTitle;
 	}
-	
+
 	public Long getProjectId() {
 		return projectId;
 	}
+
 	public void setProjectId(Long proID) {
 		this.projectId = proID;
 	}
-	
+
 	public List<Task> getTasks() {
 		return tasks;
 	}
+
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
-	
-	
-	
 
 }
