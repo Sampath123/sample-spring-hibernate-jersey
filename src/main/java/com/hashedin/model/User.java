@@ -1,8 +1,6 @@
 package com.hashedin.model;
 
-import java.util.Set;
-
-import javax.persistence.Column;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
+
 @XmlRootElement
 @Entity
 @Table(name = "users")
@@ -20,11 +20,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class User {
 	@Id
     @GeneratedValue
-    @Column(name = "USER_ID", unique = true, nullable = false)
     private Long userId;
-    private String userName;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "assignedTo")
-    private Set<Task>tasks;           
+    private String userName;    
+    @XmlInverseReference (mappedBy="assignedTo")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "assignedTo", targetEntity=Task.class)
+    private List<Task>tasks;           
 
 	public String getUserName() {
 		return userName;
@@ -34,14 +34,13 @@ public class User {
 		this.userName = userName;
 	}
 	
-	public Set<Task> getTasks() {
+	public List<Task> getTasks() {
 		return tasks;
 	}
 
-	public void setTasks(Set<Task> tasks) {
+	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
-	
 	
 	public Long getUserId() {
 		return userId;

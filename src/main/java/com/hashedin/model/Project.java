@@ -1,8 +1,6 @@
 package com.hashedin.model;
 
-import java.util.Set;
-
-import javax.persistence.Column;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +10,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 
 @XmlRootElement
 @Entity
@@ -23,8 +23,9 @@ public class Project {
     @GeneratedValue
     private Long projectId;
 	private String proTitle;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
-	private Set<Task>tasks;
+	@XmlInverseReference (mappedBy="project")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "project", targetEntity=Task.class)
+	private List<Task>tasks;
 	
 	public String getProTitle() {
 		return proTitle;
@@ -32,7 +33,7 @@ public class Project {
 	public void setProTitle(String proTitle) {
 		this.proTitle = proTitle;
 	}
-	@Column(name = "PROJECT_ID", unique = true, nullable = false)
+	
 	public Long getProjectId() {
 		return projectId;
 	}
@@ -40,10 +41,10 @@ public class Project {
 		this.projectId = proID;
 	}
 	
-	public Set<Task> getTasks() {
+	public List<Task> getTasks() {
 		return tasks;
 	}
-	public void setTasks(Set<Task> tasks) {
+	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
 	
